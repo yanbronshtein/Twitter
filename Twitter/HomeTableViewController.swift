@@ -9,22 +9,25 @@
 import UIKit
 
 class HomeTableViewController: UITableViewController {
+    @IBOutlet var tweetTable: UITableView!
     var tweetArray = [NSDictionary]() //array of dictionaries to store tweets
     var numberOfTweet: Int!
+    var refresher: UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadTweet()
-        
+        numberOfTweet = 20
+        refresher.addTarget(self, action: #selector(loadTweet), for: .valueChanged)
+        refresher.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        self.tweetTable.refreshControl = refresher
+        self.loadTweet()
         
     }
     
     //This method extracts tweets from API call, stores them in an array of dictionaries
-    func loadTweet() {
+    @objc func loadTweet() {
         let myUrl = "https://api.twitter.com/1.1/statuses/home_timeline.json"
-        let myParams = ["count": 10] //load 10 tweets
-        
-        
+        let myParams = ["count": numberOfTweet] //load 20 tweets
         TwitterAPICaller.client?.getDictionariesRequest(url: myUrl, parameters: myParams, success: { (tweets: [NSDictionary]) in
             
             self.tweetArray.removeAll() //empty the entire array
@@ -32,7 +35,8 @@ class HomeTableViewController: UITableViewController {
                 self.tweetArray.append(tweet) //add tweet to the tweet array of dictionaries
             }
             self.tableView.reloadData()
-        
+            self.refresher.endRefreshing()
+            
         }, failure: { (Error) in
             print("Could not retreive any tweets")
         })
@@ -45,7 +49,7 @@ class HomeTableViewController: UITableViewController {
         UserDefaults.standard.set(false, forKey: "userLoggedIn") //Checks to see if user already logged in
     }
     
-
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tweetCell", for: indexPath) as! TweetCellTableViewCell
