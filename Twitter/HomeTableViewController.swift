@@ -15,6 +15,7 @@ class HomeTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         numberOfTweets = 20
         
         self.loadTweetTable()
@@ -22,6 +23,11 @@ class HomeTableViewController: UITableViewController {
         myRefreshControl.addTarget(self, action: #selector(loadTweetTable), for: .valueChanged)
         
         tableView.refreshControl = myRefreshControl
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.loadTweetTable()
     }
     
     //This method extracts tweets from API call, stores them in an array of dictionaries

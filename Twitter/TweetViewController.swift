@@ -11,6 +11,13 @@ import UIKit
 class TweetViewController: UIViewController {
     
     @IBOutlet weak var tweetTextView: UITextView!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tweetTextView.becomeFirstResponder()
+        
+        // Do any additional setup after loading the view.
+    }
     @IBAction func cancel(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
@@ -28,11 +35,7 @@ class TweetViewController: UIViewController {
         }
         
     }
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
-    }
+    
     
     
     /*
