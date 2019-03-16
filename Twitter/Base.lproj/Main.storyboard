@@ -123,9 +123,6 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <connections>
-                        <outlet property="tweetTable" destination="Kgy-6V-YXs" id="GFY-VD-r2a"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1qt-od-u7M" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
