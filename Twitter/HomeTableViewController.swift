@@ -16,7 +16,6 @@ class HomeTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        numberOfTweets = 20
         
         self.loadTweetTable()
         
@@ -32,6 +31,7 @@ class HomeTableViewController: UITableViewController {
     
     //This method extracts tweets from API call, stores them in an array of dictionaries
     @objc func loadTweetTable() {
+        numberOfTweets = 20
         let myUrl = "https://api.twitter.com/1.1/statuses/home_timeline.json"
         let myParameters = ["count": numberOfTweets] //load 20 tweets
         TwitterAPICaller.client?.getDictionariesRequest(url: myUrl, parameters: myParameters, success: { (tweets: [NSDictionary]) in
